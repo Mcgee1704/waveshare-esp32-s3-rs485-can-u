@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-10-19",
+  "manufacturer": "Waveshare",
+  "model": "ESP32-S3-RS485-CAN-U",
+  "sku": 34781,
+  "variant": "external antenna; SMA at enclosure",
+  "evidence_scope": "Published family schematic and source files; not a readout of the individual board",
+  "mcu": {
+    "part_in_schematic": "ESP32-S3R8",
+    "max_cpu_mhz": 240,
+    "cores": 2,
+    "psram_mib": 8,
+    "psram_interface": "Octal SPI"
+  },
+  "flash": {
+    "part_in_schematic": "W25Q128JVSI",
+    "size_mib": 16,
+    "interface": "SPI NOR"
+  },
+  "interfaces": {
+    "rs485": {
+      "count": 1,
+      "tx_gpio": 17,
+      "rx_gpio": 18,
+      "direction_gpio": 21,
+      "demo_mode": "UART_MODE_RS485_HALF_DUPLEX",
+      "demo_baud": 9600,
+      "demo_format": "8N1",
+      "transceiver_in_schematic": "SP3485EN"
+    },
+    "can": {
+      "count": 1,
+      "controller": "ESP32-S3 TWAI",
+      "tx_gpio": 15,
+      "rx_gpio": 16,
+      "fd_supported": false,
+      "max_payload_bytes": 8,
+      "demo_bitrate_bps": 250000,
+      "demo_mode": "TWAI_MODE_NORMAL",
+      "transceiver_in_schematic": "TJA1051T/3/1J"
+    },
+    "rtc": {
+      "part_in_schematic": "PCF85063AT",
+      "i2c_address_7bit": 81,
+      "sda_gpio": 39,
+      "scl_gpio": 38,
+      "interrupt_gpio": 40
+    },
+    "usb": {
+      "native": true,
+      "d_minus_gpio": 19,
+      "d_plus_gpio": 20
+    },
+    "wifi": "2.4GHz 802.11 b/g/n",
+    "bluetooth": "Bluetooth LE 5"
+  },
+  "power": {
+    "dc_terminal_v_min": 7,
+    "dc_terminal_v_max": 36,
+    "usb_nominal_v": 5,
+    "external_current_capacity": "not established"
+  },
+  "isolation": {
+    "bus_domain": "CAN and RS485 share SGND and isolated power",
+    "controller_domain": "USB, MCU, P1 and J4",
+    "bus_to_bus_isolation": false,
+    "rated_system_isolation_voltage": "not established"
+  },
+  "mechanical": {
+    "header_p1_pitch_mm": 2.0,
+    "enclosure_dimensions_mm": [
+      91.6,
+      23.3,
+      58.7
+    ]
+  },
+  "individual_board": {
+    "owner_reported_model": "ESP32-S3-RS485-CAN-U",
+    "other_devices_connected": false,
+    "usb_identified": false,
+    "pcb_revision": null,
+    "chip_readout": null,
+    "flash_readout": null,
+    "psram_confirmed": false,
+    "tests_required_for_documentation": false
+  },
+  "source_ids": [
+    "WS-MODEL",
+    "WS-SCHEMATIC",
+    "WS-DEMO",
+    "WS-FAQ",
+    "WS-SETTINGS"
+  ]
+}

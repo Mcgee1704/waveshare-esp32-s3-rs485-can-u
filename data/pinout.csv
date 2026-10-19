@@ -1,0 +1,31 @@
+connector,pin,signal,gpio,domain,note
+P1,1,3V3,,controller,power
+P1,2,5V,,controller,power
+P1,3,GND,,controller,ground
+P1,4,GND,,controller,ground
+P1,5,TXD,43,controller,UART0 TX via 499-ohm R10
+P1,6,D_P,20,controller,USB D+ shared with USB-C
+P1,7,RXD,44,controller,UART0 RX
+P1,8,D_N,19,controller,USB D- shared with USB-C
+P1,9,IO3,3,controller,strapping/JTAG source selection
+P1,10,IO14,14,controller,GPIO
+P1,11,IO4,4,controller,GPIO
+P1,12,IO13,13,controller,GPIO
+P1,13,IO5,5,controller,GPIO
+P1,14,IO12,12,controller,GPIO
+P1,15,IO6,6,controller,GPIO
+P1,16,IO11,11,controller,GPIO
+P1,17,IO7,7,controller,GPIO
+P1,18,IO10,10,controller,GPIO
+P1,19,IO8,8,controller,GPIO
+P1,20,IO9,9,controller,GPIO
+J2,1,GND,,controller,schematic pin numbering; physical orientation not individually verified
+J2,2,VIN_7_36V,,controller,schematic pin numbering; physical orientation not individually verified
+J4,1,IO1,1,controller,schematic pin numbering; physical orientation not individually verified
+J4,2,IO2,2,controller,schematic pin numbering; physical orientation not individually verified
+J4,3,3V3,,controller,schematic pin numbering; physical orientation not individually verified
+J4,4,GND,,controller,schematic pin numbering; physical orientation not individually verified
+J5,1,CANH,,shared_isolated_bus,schematic pin numbering; physical orientation not individually verified
+J5,2,CANL,,shared_isolated_bus,schematic pin numbering; physical orientation not individually verified
+J6,1,RS485A,,shared_isolated_bus,schematic pin numbering; physical orientation not individually verified
+J6,2,RS485B,,shared_isolated_bus,schematic pin numbering; physical orientation not individually verified
