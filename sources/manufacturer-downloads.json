@@ -1,0 +1,29 @@
+{
+  "subject": "Waveshare ESP32-S3-RS485-CAN-U",
+  "retrieved_date": "2026-10-19",
+  "downloads": [
+    {
+      "file": "ESP32-S3-RS485-CAN-Demo.zip",
+      "url": "https://files.waveshare.com/wiki/ESP32-S3-RS485-CAN/ESP32-S3-RS485-CAN-Demo.zip",
+      "bytes": 1638256,
+      "sha256": "3d58d558fe114b71e991d7e2a31a43482a11d60865caaeba0a2618ab457b02c3",
+      "retrieved_date": "2026-10-19"
+    },
+    {
+      "file": "ESP32-S3-RS485-CAN-Schematic.pdf",
+      "url": "https://files.waveshare.com/wiki/ESP32-S3-RS485-CAN/ESP32-S3-RS485-CAN-Schematic.pdf",
+      "bytes": 364955,
+      "sha256": "c6620c0f318166c043733febd0c30835972c9cd09dcda4395fb39526fd5ea915",
+      "retrieved_date": "2026-10-19"
+    },
+    {
+      "file": "ESP32-S3-16MB-OPI-Parameters.png",
+      "url": "https://www.waveshare.com/w/upload/e/e9/ESP32-S3-16MB-OPI-Parameters.png",
+      "bytes": 97667,
+      "sha256": "f9a28751afa941ee74ecd2153686dd59c66df0ca7b14d518adf94de6fd2c6a9c",
+      "retrieved_date": "2026-10-19"
+    }
+  ],
+  "repository_index": "repositories.json",
+  "storage": "Download originals are retained locally and are not included in the public repository."
+}
