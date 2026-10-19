@@ -34,6 +34,12 @@ Dateigrößen und SHA256-Werte der drei lokal gesicherten Originaldownloads steh
 
 [repositories.json](repositories.json) hält für 14 öffentliche Repositories vollständige Commit-SHAs, unveränderliche README-Links und API-Metadaten fest. Die bewertete Übersicht steht in [Git-Projekte](../docs/06-git-projects.md). Einzelne Lizenzdateien wurden zusätzlich lokal nachgesehen; die API-Kennung NOASSERTION wird nicht mit fehlendem Lizenztext gleichgesetzt.
 
+## Individuelle Geräteauslesung
+
+| ID | Quelle | Verwendung und Grenzen |
+| --- | --- | --- |
+| LOCAL-READOUT-20261019 | Lokale Chip- und Flash-Abfrage vom 19.10.2026, esptool 5.3.0; [bereinigte Zusammenfassung](../docs/05-own-board.md) | ESP32-S3 QFN56 v0.2, 8 MB PSRAM laut Package-Erkennung, 16 MB Flash, JEDEC `0x20`/`0x4018`, 40-MHz-Quarz, USB-VID/PID und Flashtyp/-spannung laut eFuse. Keine Firmwareänderung oder Funktionsprüfung. Rohdaten mit eindeutigen Gerätekennungen bleiben lokal. |
+
 ## Offene Nachweise
 
 Es liegt keine vollständige Fertigungs-BOM des U-Exemplars, keine bestätigte eigene PCB-Revision, kein Messbericht und kein Gesamtboard-Isolationsprüfbericht vor. Solche Angaben werden nicht durch Einzelchipdaten oder Aussagen anderer Hobbyprojekte ersetzt.
