@@ -29,3 +29,5 @@ J5,1,CANH,,shared_isolated_bus,schematic pin numbering; physical orientation not
 J5,2,CANL,,shared_isolated_bus,schematic pin numbering; physical orientation not individually verified
 J6,1,RS485A,,shared_isolated_bus,schematic pin numbering; physical orientation not individually verified
 J6,2,RS485B,,shared_isolated_bus,schematic pin numbering; physical orientation not individually verified
+J7,1,RTC_VDD,,controller,RTC supply node fed from 3V3 via D7; battery chemistry and physical orientation not individually verified
+J7,2,GND,,controller,schematic pin numbering; physical orientation not individually verified

@@ -6,7 +6,7 @@ Dieses Dokument beschreibt die Programmierwege. Es ist kein Auftrag zum Flashen 
 
 Die USB-C-Datenleitungen führen direkt zum ESP32-S3. Eine sichtbare Espressif-USB-Kennung kann den Chip erkennen helfen, belegt aber weder Waveshare als Platinenhersteller noch die U-Variante oder Platinenrevision. Ein reines Ladekabel kann das Board versorgen, ohne eine Datenverbindung herzustellen. Die laufende Firmware kann das USB-Verhalten verändern. [Schaltplan](https://files.waveshare.com/wiki/ESP32-S3-RS485-CAN/ESP32-S3-RS485-CAN-Schematic.pdf), [Espressif-Datenblatt](https://documentation.espressif.com/esp32-s3_datasheet_en.pdf)
 
-Zum dokumentierten manuellen Downloadmodus: BOOT halten, RESET drücken und loslassen, danach BOOT loslassen. Das startet den Chip neu und ist deshalb von einer passiven Betriebssysteminventur zu unterscheiden. Der Vorgang wurde hier nicht durchgeführt. [Waveshare-FAQ](https://docs.waveshare.net/ESP32-S3-RS485-CAN/FAQ/)
+Zum dokumentierten manuellen Downloadmodus: BOOT halten, RESET drücken und loslassen, danach BOOT loslassen. Das startet den Chip neu und ist deshalb von einer passiven Betriebssysteminventur zu unterscheiden. Am eigenen Exemplar wurde dieser Modus vor der lesenden Chip- und Flash-Abfrage am 19.10.2026 durch den Besitzer hergestellt. Die anschließende Auslesung erfolgte ohne Firmware-Schreibbefehl, RAM-Hilfslader oder angeforderten automatischen Reset. [Auslesung des eigenen Boards](05-own-board.md), [Waveshare-FAQ](https://docs.waveshare.net/ESP32-S3-RS485-CAN/FAQ/).
 
 ## Herstellerdemo
 
@@ -50,6 +50,21 @@ Der [IDE-Screenshot](https://www.waveshare.com/w/upload/e/e9/ESP32-S3-16MB-OPI-P
 
 „Automatische Richtungsumschaltung“ heißt beim Herstellerdemo: Der konfigurierte UART-Treiber steuert RTS. GPIO21 darf nicht einfach weggelassen werden. Ein fremdes Projekt mit automatischer RS485-Hardware ist nicht allein durch Tauschen von TX/RX-Pins passend.
 
+### RS485-Richtung und Treiberzuständigkeit
+
+Im Familienschaltplan führt GPIO21 (`RS485_EN`) über den Isolatorkanal U9 VIC/VOC zum gemeinsamen Signal an DE und aktivem Low-RE des SP3485. Die Tabelle ist eine Ableitung aus Schaltung und Bauteilfunktion, kein Gegenstellentest des Exemplars.
+
+| GPIO21 / gemeinsames Enable im dargestellten Signalpfad | SP3485 DE | SP3485 /RE | Betriebszustand |
+| --- | --- | --- | --- |
+| Low | Low | Low | Sender hochohmig, Empfänger aktiv |
+| High | High | High | Sender aktiv, Empfänger deaktiviert |
+
+Die Tabelle setzt gültige, aktiv angesteuerte Logikpegel voraus. Sie legt keinen garantierten GPIO21-Zustand während Reset, Boot oder vor der Treiberinitialisierung fest. Das Folgeprojekt muss die Initialisierung der Richtung berücksichtigen; ein solcher Startzustand wurde hier nicht am Board gemessen.
+
+Beim ESP-IDF-UART-Treiber im Modus `UART_MODE_RS485_HALF_DUPLEX` wird RTS beim Senden auf 1 gesetzt und nach dem letzten tatsächlich ausgesendeten Bit auf 0 zurückgenommen. Die normale RTS/CTS-Hardware-Flusssteuerung ist dafür zu deaktivieren; RTS ist hier Richtungssteuerung. Das Arduino-Herstellerdemo ordnet GPIO21 dem RTS-Pin von UART1 zu und wählt diesen Halbduplexmodus. [ESP-IDF 5.5.2 UART, RS485-Modus und Circuit B](https://docs.espressif.com/projects/esp-idf/en/v5.5.2/esp32s3/api-reference/peripherals/uart.html), [SP3485, Pin Functions](https://www.maxlinear.com/ds/sp3485.pdf), [Schaltplan](https://files.waveshare.com/wiki/ESP32-S3-RS485-CAN/ESP32-S3-RS485-CAN-Schematic.pdf).
+
+Für Folgeprojekte gilt: **Eine Komponente besitzt GPIO21.** Übernimmt der UART-Treiber die Richtung, darf eine Modbus-Komponente den Pin nicht zusätzlich unabhängig schalten. Bei manueller Steuerung vor dem Senden auf High schalten, das Ende der tatsächlichen UART-Übertragung einschließlich letztem Stoppbit abwarten und anschließend auf Low zurückschalten. Ein leerer Anwendungspuffer allein belegt noch keinen leeren UART-Sender. Protokollpausen und Antwortzeiten richten sich zusätzlich nach dem verwendeten Protokoll. Frameworkversion, Richtungspolarität und zuständige Komponente gehören ins Projektprofil.
+
 ## CAN und RS485 als Softwarebausteine
 
 Der S3 besitzt einen TWAI-Controller mit klassischen CAN-Frames: 11-/29-Bit-Identifier, maximal acht Nutzdatenbytes. Er unterstützt keine CAN-FD-Frames. Der Transceiver auf der Platine benötigt keine MCP2515-SPI-Bibliothek. Ein Projekt für den MCP2515 muss auf den tatsächlichen Controller angepasst werden. [Espressif TWAI](https://docs.espressif.com/projects/esp-idf/en/v5.5.2/esp32s3/api-reference/peripherals/twai.html)
@@ -75,3 +90,22 @@ Die Hardware-Flashgröße 16 MB bedeutet weder eine 16-MB-App noch automatisch z
 Für ESPHome wird GPIO21 als Flow-Control passend zur konkreten Komponente konfiguriert. Pinpolarität und Zuständigkeit nicht durch doppelte Steuerung in UART und Modbus widersprüchlich setzen. Die Dokumentation der verwendeten Version ist maßgeblich. [ESPHome UART](https://esphome.io/components/uart/), [ESPHome CAN](https://esphome.io/components/canbus/)
 
 Die Framework-Commits im Quellenregister sind Recherche-Snapshots der damaligen Standardbranches, keine getesteten Release-Pins für ein Bauprojekt.
+
+## Projektprofil für ein Folgeprojekt
+
+Vor der Übernahme diese Felder im jeweiligen Projekt ausfüllen. Die Herstellerwerte dienen als Referenz; es werden hier keine neuen Firmwarevorgaben auf das Board übertragen.
+
+| Entscheidung | Einzutragender Projektwert |
+| --- | --- |
+| Aufgabe und Gegenstellen | Gerätefamilie, Datenrichtung, Protokoll und Adressierung; kein universelles Geräteprofil voraussetzen |
+| Hardwarebasis | ESP32-S3-RS485-CAN-U laut Besitzer; PCB-Revision, Steckerlage und unbekannte Bauteile als offen übernehmen |
+| Framework | Arduino, ESP-IDF oder ESPHome mit exakter Releaseversion; Quellcommit und Abhängigkeiten festhalten |
+| Speicher | 16 MB Flash; 8 MB PSRAM laut Package-Erkennung, OPI-Referenz; passende Flash-/PSRAM-Einstellungen bewusst wählen |
+| Partitionen und Updateweg | Eigene Partitionstabelle und gegebenenfalls OTA-Slots; Demoaufteilung nicht ungeprüft übernehmen |
+| USB und Protokollierung | Gewünschter USB-Modus, CDC-Verhalten und Logausgabe; UART0 43/44 und USB 19/20 nicht versehentlich anderweitig belegen |
+| CAN | TX15/RX16; Bitrate, Identifier, Normal- oder Listen-only-Modus und erforderlicher H1-Abschluss |
+| RS485 | TX17/RX18/EN21; Baudrate, Datenformat, Richtungspolarität, einzelne zuständige Treiberkomponente und H2-Abschluss |
+| Erweiterungen und Versorgung | Verwendete P1-/J4-Pins, Strapping-Konflikte, Pegel, Quelle, Peripherielast und dokumentierte offene Strombudgets |
+| Netzwerkfunktionen | Lokale Dienste und gegebenenfalls ausdrücklich gewünschte externe Ziele; persönliche Zugangsdaten getrennt verwalten |
+
+Das Profil dokumentiert Planungsentscheidungen. Es ist weder eine gebaute Firmwarevorlage noch ein Nachweis der angeschlossenen Gerätefunktion. Anschlussregeln und offene elektrische Grenzen stehen im [elektrischen Aufbau](03-power-and-isolation.md).

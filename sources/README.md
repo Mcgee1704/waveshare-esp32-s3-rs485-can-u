@@ -30,6 +30,17 @@ Dateigrößen und SHA256-Werte der drei lokal gesicherten Originaldownloads steh
 | XLSEMI | [XL1509-Datenblatt](https://www.xlsemi.com/datasheet/XL1509-EN.pdf) | Versorgungsklemmen-Regler; nicht mit Gesamtboardfreigabe verwechseln |
 | ESPHome | [UART](https://esphome.io/components/uart/), [CAN](https://esphome.io/components/canbus/) | Softwarekonfiguration im jeweiligen Versionsstand |
 
+## Primärquellen für Anschlussregeln
+
+| ID | Primärquelle | Verwendeter Abschnitt |
+| --- | --- | --- |
+| ESP-S3-DS-2.2 | [ESP32-S3-Datenblatt v2.2](https://documentation.espressif.com/esp32-s3_datasheet_en.pdf) | 4.1.1.3: ULP; 5.1/5.2/5.4: Grenzwerte, Betriebsbedingungen und GPIO-Charakteristik. Chipwerte sind kein Board-Strombudget. |
+| ESP-UART-5.5.2 | [ESP-IDF 5.5.2 UART für ESP32-S3](https://docs.espressif.com/projects/esp-idf/en/v5.5.2/esp32s3/api-reference/peripherals/uart.html) | RS485-Halbduplex mit RTS, Schaltzeitpunkt nach dem letzten Bit, Circuit B und getrennte RTS/CTS-Flusssteuerung |
+| ML-SP3485 | [SP3485-Datenblatt, Rev. 2.0.2](https://www.maxlinear.com/ds/sp3485.pdf) | Pin Functions und Description: DE aktiv High, RE aktiv Low; Transceivergrenzen nicht mit Gesamtboardgrenzen gleichsetzen |
+| TI-RS485-D | [RS-485 Design Guide, Rev. D](https://www.ti.com/lit/an/slla272d/slla272d.pdf) | 6: Terminierung und Stichleitungen; 7: Bias; 11: Masseführung und Isolation |
+
+Diese ergänzenden Primärquellen wurden am 19.10.2026 für die Dokumentationskorrekturen eingesehen. Die verlinkten Datenblatt-URLs können später eine neuere Fassung ausliefern; die genannten Versions- und Abschnittsangaben bezeichnen den ausgewerteten Stand. Es wurden keine neuen Boardmessungen daraus abgeleitet.
+
 ## Git-Repositories
 
 [repositories.json](repositories.json) hält für 14 öffentliche Repositories vollständige Commit-SHAs, unveränderliche README-Links und API-Metadaten fest. Die bewertete Übersicht steht in [Git-Projekte](../docs/06-git-projects.md). Einzelne Lizenzdateien wurden zusätzlich lokal nachgesehen; die API-Kennung NOASSERTION wird nicht mit fehlendem Lizenztext gleichgesetzt.

@@ -29,11 +29,11 @@ GPIO43/44 sind die ESP32-S3-Zuordnung der Signale U0TXD/U0RXD. TXD liegt im Scha
 | J4 | 1 = GPIO1, 2 = GPIO2, 3 = 3V3, 4 = GND | Externer SH1.0-Anschluss |
 | J5 | 1 = CANH, 2 = CANL | Isolierter CAN-Bus |
 | J6 | 1 = RS485A, 2 = RS485B | Isolierter RS485-Bus; Gehäusekennzeichnung A+/B- |
-| J7 | Batterieanschluss | RTC-Versorgung; Batterieart und Polarität am Original abgleichen |
+| J7 | 1 = RTC-VDD, 2 = GND | Zweipoliger RTC-Batterieanschluss; SH1.0 laut Hersteller; physische Pinorientierung und Batterieart am Original abgleichen |
 | J1 | U.FL/IPEX, HF-Signal und Schirm | Interner Anschluss im Antennenpfad |
 | Type_C1 | USB-C | USB-Daten und 5-V-Versorgung |
 
-J4 hat im Schaltplan zusätzlich den mechanischen Pin 0 auf GND. Er ist kein fünfter belegbarer Anschluss am vierpoligen Kabel. Die Farbfolge eines beliebigen SH1.0-Kabels ist kein Beleg für seine Pinreihenfolge.
+J4 und J7 haben im Schaltplan zusätzlich jeweils den mechanischen Pin 0 auf GND. Er ist kein zusätzlicher belegbarer Kabelkontakt. Die Farbfolge eines beliebigen SH1.0-Kabels ist kein Beleg für seine Pinreihenfolge. J7 Pin 1 ist der RTC-Versorgungsknoten hinter D7, kein allgemeiner Versorgungseingang für den ESP32; eine Akku- oder Ladefreigabe folgt aus der Pinbelegung nicht.
 
 ## Intern belegte GPIOs
 
@@ -74,4 +74,6 @@ GPIO-Nummern sind nicht die Gehäusepinnummern des ESP32. Auf P1 vorhandene Pins
 
 NC bedeutet hier unbestückt bzw. nicht verbunden. Die Bestückungsoptionen sind keine Softwareeinstellungen und keine Aufforderung zum Umlöten. Eine einmal angenommene Jumperlage wird nicht als beobachteter Zustand des eigenen Boards ausgegeben.
 
-Die Daten sind zusätzlich in [pinout.csv](../data/pinout.csv) enthalten.
+Für den Busanschluss gelten die [Regeln für End- und Zwischenknoten](03-power-and-isolation.md#busstruktur-und-abschlusswiderstände). GPIO21 wird nach der [Sende-/Empfangstabelle](04-firmware.md#rs485-richtung-und-treiberzuständigkeit) gesteuert. Elektrische Pegel und Versorgungskombinationen stehen im [elektrischen Aufbau](03-power-and-isolation.md#gpio-pegel-und-erweiterungslasten).
+
+Die [pinout.csv](../data/pinout.csv) enthält **32 elektrische Kabel-/Headerkontakte**: P1 (20), J2 (2), J4 (4), J5 (2), J6 (2), J7 (2). J1/HF, die einzelnen USB-C-Kontakte sowie mechanische Massekontakte sind nicht Teil dieser CSV. Tabellen und CSV verwenden weiterhin die Schaltplannummerierung; eine Gehäusedraufsicht des eigenen Exemplars ist damit nicht nachgewiesen.

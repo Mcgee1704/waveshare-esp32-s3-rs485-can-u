@@ -6,12 +6,12 @@ Technische Referenz zur Waveshare-Platine mit externer Antenne, isoliertem RS485
 | --- | --- |
 | Modell, Speicher, Bauteile und Grenzen | [Hardware](docs/01-hardware.md) |
 | Alle 20 Erweiterungspins, Anschlüsse und GPIO-Belegung | [Pinbelegung](docs/02-pinout.md) |
-| Versorgung, Schutzbauteile, Isolation und Masseführung | [Elektrischer Aufbau](docs/03-power-and-isolation.md) |
-| USB, Bootmodus, Arduino, ESP-IDF und ESPHome | [Programmierung](docs/04-firmware.md) |
+| Versorgung, GPIO-Grenzen, Busabschlüsse, Bias und Isolation | [Elektrischer Aufbau](docs/03-power-and-isolation.md) |
+| USB, Bootmodus, RS485-Steuerung und Projektprofil | [Programmierung](docs/04-firmware.md) |
 | Tatsächlicher Erfassungsstand des eigenen Exemplars | [Eigenes Board](docs/05-own-board.md) |
 | 14 Git-Repositories, Einsatzzweck und Lizenzhinweise | [Git-Projekte](docs/06-git-projects.md) |
 | Quellen, Herstellerdownloads und Datenblätter | [Quellenregister](sources/README.md) |
-| Wiederverwendbare strukturierte Angaben | [Boarddaten](data/board.json), [Pinliste als CSV](data/pinout.csv) |
+| Wiederverwendbare strukturierte Angaben | [Boarddaten](data/board.json), [32 Anschlusskontakte als CSV](data/pinout.csv) |
 
 ## Kurzreferenz
 
@@ -32,3 +32,5 @@ Die Angaben wurden aus Herstellerunterlagen, dem Schaltplan, ausgewählten Demoq
 Am eigenen Board sind laut Besitzer keine weiteren Geräte angeschlossen. Bus-, Sensor- und Gegenstellentests gehören nicht zu dieser Erfassung und sind keine Voraussetzung für die Dokumentation.
 
 Originaldownloads und lokale Untersuchungsunterlagen werden getrennt aufbewahrt. Dieses Repository enthält eigene technische Zusammenfassungen, Quellenverweise und Herkunftsdaten. Es ist keine offizielle Waveshare-Veröffentlichung.
+
+Für Folgeprojekte gelten die [Anschluss- und Versorgungsregeln](docs/03-power-and-isolation.md) sowie das [auszufüllende Projektprofil](docs/04-firmware.md#projektprofil-für-ein-folgeprojekt). Die CSV erfasst P1, J2, J4, J5, J6 und J7 nach Schaltplannummerierung; HF-, USB-C- und mechanische Kontakte sind ausgenommen. Unbekannte Strombudgets, Batteriechemie und die physische Pinorientierung des eigenen Exemplars werden dadurch nicht bestätigt.

@@ -8,7 +8,7 @@ Stand: 19.10.2026.
 | Weitere angeschlossene Geräte | Laut Besitzer keine; Gegenstellentests sind nicht beauftragt |
 | USB-Erkennung am Untersuchungsrechner | Erfolgreich als Espressif USB-Serial/JTAG erkannt; VID `0x303A`, PID `0x1001`; Windows-Gerätestatus OK |
 | Chipmodell und Chiprevision | ESP32-S3 (QFN56), Siliziumrevision v0.2 |
-| Kerne und gemeldeter CPU-Takt | Dual Core + LP Core; 240 MHz als Chipeigenschaft, keine Messung des laufenden Firmwaretakts |
+| Kerne und gemeldeter CPU-Takt | esptool meldet „Dual Core + LP Core“; Architektur: zwei LX7-Kerne und ULP-Koprozessoren. 240 MHz als Chipeigenschaft, keine Messung des laufenden Firmwaretakts |
 | Quarz | 40 MHz laut esptool |
 | Funkmerkmale laut Chipkennung | Wi-Fi, Bluetooth 5 LE; kein Funkfunktionstest |
 | Flash-JEDEC-Kennung | Hersteller `0x20`, Gerät `0x4018`; genaue Bauteilbezeichnung offen |
@@ -39,4 +39,6 @@ CAN-, RS485-, Sensor-, Last- und Gegenstellentests entfallen in diesem Auftrag. 
 
 ## Öffentlich und lokal
 
-Für die Veröffentlichung vorbereitet sind die oben aufgeführten bereinigten Erkenntnisse dieses Exemplars und die entsprechenden Felder in [board.json](../data/board.json). MAC-Adressen, USB-Seriennummern, lokale Anschlussnummern, Rechnerpfade, WLAN-Zugänge, vollständige Flashabbilder und Inventare anderer Geräte werden nicht in die Veröffentlichung übernommen. Das unbereinigte lokale Erfassungsprotokoll bleibt außerhalb des Git-Veröffentlichungsumfangs.
+Die oben aufgeführten bereinigten Erkenntnisse dieses Exemplars und die entsprechenden Felder in [board.json](../data/board.json) wurden am 19.10.2026 mit dem Abschlusscommit [3b88771](https://github.com/Mcgee1704/waveshare-esp32-s3-rs485-can-u/commit/3b88771b7a1ab5279405e14b9c04b569ea1afa05) auf GitHub `main` veröffentlicht. Das Publikationsprotokoll steht in [PUBLICATION.md](../PUBLICATION.md).
+
+MAC-Adressen, USB-Seriennummern, lokale Anschlussnummern, Rechnerpfade, WLAN-Zugänge, vollständige Flashabbilder und Inventare anderer Geräte sind vom Veröffentlichungsumfang ausgeschlossen. Das unbereinigte lokale Erfassungsprotokoll bleibt lokal. `psram_confirmed` in den strukturierten Daten bedeutet ausschließlich Bestätigung der Package-Angabe; `psram_evidence_status: package_identification` und `psram_functionally_tested: false` machen diese Grenze explizit.

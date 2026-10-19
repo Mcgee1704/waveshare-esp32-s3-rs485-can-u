@@ -22,6 +22,8 @@ Am eigenen Exemplar meldete esptool 5.3.0 am 19.10.2026 einen ESP32-S3 (QFN56), 
 
 Das Board ist im Schaltplan mit einem ESP32-S3R8 und separatem Flash aufgebaut. Die gelegentliche Bezeichnung als ESP32-S3-WROOM-Modul in Drittunterlagen ist keine belastbare Beschreibung dieser gezeigten Platine.
 
+Die esptool-Ausgabe „Dual Core + LP Core“ wird beim [eigenen Exemplar](05-own-board.md) als Werkzeugmeldung erhalten. Architektonisch besitzt der ESP32-S3 zwei LX7-Anwendungskerne und ULP-FSM-/ULP-RISC-V-Koprozessoren, die nicht gleichzeitig arbeiten. Daraus folgt weder ein dritter allgemeiner Anwendungskern noch eine Zusage der LP-Core-Programmierumgebung anderer ESP32-Familien. [Espressif-Datenblatt v2.2, Abschnitt 4.1.1.3](https://documentation.espressif.com/esp32-s3_datasheet_en.pdf).
+
 ## Funktionsbauteile im veröffentlichten Schaltplan
 
 | Kennzeichen | Bauteil | Aufgabe |
@@ -49,7 +51,7 @@ Die Auswahl wird hardwareseitig durch die Bestückung getroffen, nicht durch ein
 
 PCF85063A stellt Kalender, Uhrzeit, Alarm und Timer bereit. Der Chip verwendet I2C; im Herstellerdemo ist die 7-Bit-Adresse **0x51** definiert. Das Adressbyte mit Lese-/Schreibbit ist davon zu unterscheiden. Interner RTC-Bus und externer J4-Anschluss sind nicht dasselbe: J4 führt GPIO1/2 heraus, während die RTC GPIO38/39 verwendet. [Herstellerdemo](https://files.waveshare.com/wiki/ESP32-S3-RS485-CAN/ESP32-S3-RS485-CAN-Demo.zip), [NXP RTC-Datenblatt](https://www.nxp.com/docs/en/data-sheet/PCF85063A.pdf)
 
-J7 ist der Batterieanschluss im Schaltplan. Der Hersteller nennt eine wiederaufladbare RTC-Batterie. Eine konkrete Batteriechemie, Anschlussstromfreigabe oder passende Primärzelle wird daraus hier nicht abgeleitet. Eine RTC-Batterie versorgt nicht automatisch WLAN oder den gesamten Controller. [Herstellerressourcen](https://docs.waveshare.net/ESP32-S3-RS485-CAN/), [Schaltplan](https://files.waveshare.com/wiki/ESP32-S3-RS485-CAN/ESP32-S3-RS485-CAN-Schematic.pdf)
+J7 ist der zweipolige RTC-Batterieanschluss: Pin 1 führt laut Schaltplan RTC-VDD, Pin 2 GND. D7 verbindet die 3V3-Schiene mit RTC-VDD; die tatsächliche Kabelorientierung des Exemplars bleibt unbestätigt. Der Hersteller nennt einen wiederaufladbaren RTC-Akku am SH1.0-Anschluss. Daraus wird keine konkrete Batteriechemie, Ladestrombegrenzung oder Freigabe für eine Primärzelle abgeleitet. Eine RTC-Batterie versorgt nicht automatisch WLAN oder den gesamten Controller. [Herstellerressourcen](https://docs.waveshare.net/ESP32-S3-RS485-CAN/), [Schaltplan](https://files.waveshare.com/wiki/ESP32-S3-RS485-CAN/ESP32-S3-RS485-CAN-Schematic.pdf)
 
 ## Anzeigen und Gehäuse
 

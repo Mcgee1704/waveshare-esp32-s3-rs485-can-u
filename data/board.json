@@ -10,6 +10,8 @@
     "part_in_schematic": "ESP32-S3R8",
     "max_cpu_mhz": 240,
     "cores": 2,
+    "ulp_coprocessors": ["ULP-FSM", "ULP-RISC-V"],
+    "ulp_coprocessors_simultaneous": false,
     "psram_mib": 8,
     "psram_interface": "Octal SPI"
   },
@@ -24,6 +26,25 @@
       "tx_gpio": 17,
       "rx_gpio": 18,
       "direction_gpio": 21,
+      "direction_logic_in_schematic": {
+        "low": "driver high impedance; receiver enabled",
+        "high": "driver enabled; receiver disabled",
+        "enable_path": "GPIO21 RS485_EN -> U9 VIC/VOC -> shared SP3485 DE and active-low RE",
+        "evidence": "schematic and component function; not a counterpart test",
+        "control_owner_rule": "one UART or protocol component owns GPIO21; wait for the final transmitted stop bit before returning to receive"
+      },
+      "termination": {
+        "jumper": "H2",
+        "resistor": "R25",
+        "ohms": 120,
+        "manufacturer_default": "NC",
+        "individual_jumper_state": null,
+        "placement_rule": "match the line and topology; end termination for a usual 120-ohm line; no automatic additional termination at intermediate nodes"
+      },
+      "bias_in_schematic": [
+        {"resistor": "R24", "ohms": 4700, "signal": "RS485B-2", "rail": "SGND"},
+        {"resistor": "R27", "ohms": 4700, "signal": "RS485A-2", "rail": "Relay-3V3"}
+      ],
       "demo_mode": "UART_MODE_RS485_HALF_DUPLEX",
       "demo_baud": 9600,
       "demo_format": "8N1",
@@ -38,14 +59,32 @@
       "max_payload_bytes": 8,
       "demo_bitrate_bps": 250000,
       "demo_mode": "TWAI_MODE_NORMAL",
-      "transceiver_in_schematic": "TJA1051T/3/1J"
+      "transceiver_in_schematic": "TJA1051T/3/1J",
+      "termination": {
+        "jumper": "H1",
+        "resistor": "R19",
+        "ohms": 120,
+        "manufacturer_default": "NC",
+        "individual_jumper_state": null,
+        "placement_rule": "one 120-ohm termination at each end of a usual linear high-speed CAN bus; do not duplicate an existing end termination or terminate every node"
+      }
     },
     "rtc": {
       "part_in_schematic": "PCF85063AT",
       "i2c_address_7bit": 81,
       "sda_gpio": 39,
       "scl_gpio": 38,
-      "interrupt_gpio": 40
+      "interrupt_gpio": 40,
+      "backup_connector_in_schematic": {
+        "connector": "J7",
+        "pin_1": "RTC_VDD",
+        "pin_2": "GND",
+        "supply_path": "3V3 -> D7 -> RTC_VDD",
+        "manufacturer_connector_type": "SH1.0",
+        "battery_chemistry": null,
+        "charging_current_limit_established": false,
+        "individual_physical_orientation_verified": false
+      }
     },
     "usb": {
       "native": true,
@@ -59,7 +98,23 @@
     "dc_terminal_v_min": 7,
     "dc_terminal_v_max": 36,
     "usb_nominal_v": 5,
-    "external_current_capacity": "not established"
+    "external_current_capacity": "not established",
+    "usb_only": "manufacturer documented: 5 V",
+    "dc_terminal_only": "manufacturer documented: 7-36 V",
+    "usb_and_dc_simultaneous_product_approval": "not established; schematic diode paths alone are not a complete product approval",
+    "p1_or_j4_external_power_input_approval": "not established; J4 3V3 is described as an output by the manufacturer",
+    "foreign_powered_gpio_rule": "coordinate power sequencing and levels; prevent back-powering of an unpowered controller"
+  },
+  "gpio_electrical_reference": {
+    "scope": "ESP32-S3 chip datasheet v2.2 tables 5-2 and 5-4; not measured board or header load capability",
+    "nominal_logic_v": 3.3,
+    "chip_supply_recommended_v_min": 3.0,
+    "chip_supply_recommended_v_max": 3.6,
+    "input_low_max_vdd_ratio": 0.25,
+    "input_high_min_vdd_ratio": 0.75,
+    "dc_input_high_max_above_vdd_v": 0.3,
+    "gpio_5v_tolerant": false,
+    "external_header_current_budget_a": null
   },
   "isolation": {
     "bus_domain": "CAN and RS485 share SGND and isolated power",
@@ -74,6 +129,12 @@
       23.3,
       58.7
     ]
+  },
+  "pinout_csv_scope": {
+    "connectors": ["P1", "J2", "J4", "J5", "J6", "J7"],
+    "contact_count": 32,
+    "numbering": "schematic; individual physical orientation not verified",
+    "excluded": ["J1 RF contacts", "individual USB-C contacts", "mechanical ground contacts"]
   },
   "individual_board": {
     "owner_reported_model": "ESP32-S3-RS485-CAN-U",
@@ -103,6 +164,7 @@
       "exact_component": null
     },
     "psram_confirmed": true,
+    "psram_evidence_status": "package_identification",
     "psram_confirmation_method": "Chip-package identification reports embedded 8 MB PSRAM (AP_3v3); no memory function test",
     "psram_mib_reported": 8,
     "psram_functionally_tested": false,
@@ -130,6 +192,10 @@
     "WS-DEMO",
     "WS-FAQ",
     "WS-SETTINGS",
-    "LOCAL-READOUT-20261019"
+    "LOCAL-READOUT-20261019",
+    "ESP-S3-DS-2.2",
+    "ESP-UART-5.5.2",
+    "ML-SP3485",
+    "TI-RS485-D"
   ]
 }
