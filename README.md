@@ -17,6 +17,7 @@ Technische Referenz zur Waveshare-Platine mit externer Antenne, isoliertem RS485
 
 - Variante **U**, SKU **34781**: externe Antenne mit SMA-Anschluss. Standardvariante ohne U: SKU 32154, interne Antenne.
 - Laut veröffentlichtem Schaltplan ESP32-S3R8 mit 8 MB OPI-PSRAM und separatem W25Q128JV-Flash mit 16 MB.
+- Am eigenen Exemplar ausgelesen: **ESP32-S3 (QFN56), Revision v0.2**, 8 MB PSRAM laut Chipkennung, 16 MB Flash und 40-MHz-Quarz. Flash-JEDEC: Hersteller `0x20`, Gerät `0x4018`; genaue Flash-Bauteilbezeichnung offen. [Auslesung und Nachweisgrenzen](docs/05-own-board.md).
 - RS485: TX GPIO17, RX GPIO18, Richtungssteuerung GPIO21.
 - CAN: TX GPIO15, RX GPIO16; ein klassischer CAN-Bus, kein CAN FD.
 - RTC PCF85063A: SDA GPIO39, SCL GPIO38, Interrupt GPIO40, I2C-Adresse 0x51.
@@ -26,7 +27,7 @@ Nachweise: [Waveshare-Modellübersicht](https://docs.waveshare.net/ESP32-S3-RS48
 
 ## Aussagekraft
 
-Die Angaben wurden aus Herstellerunterlagen, dem Schaltplan, ausgewählten Demoquelldateien und den verlinkten Originalprojekten erarbeitet. Die Zuordnung zu einer konkreten Platinenrevision des eigenen Exemplars ist noch offen. Änderungen an Firmware oder Bestückung wurden nicht vorgenommen.
+Die Angaben wurden aus Herstellerunterlagen, dem Schaltplan, ausgewählten Demoquelldateien und den verlinkten Originalprojekten erarbeitet. Hinzu kommt die erfolgreiche, ausschließlich lesende Chip- und Flash-Abfrage des eigenen Exemplars vom 19.10.2026 mit esptool 5.3.0. Die Zuordnung zu einer konkreten Platinenrevision ist weiterhin offen; die Chipkennung allein belegt die Waveshare-Variante nicht. Änderungen an Firmware oder Bestückung wurden nicht vorgenommen. Die PSRAM-Größe stammt aus der Chip-Package-Erkennung; ein Speicherfunktionstest wurde nicht durchgeführt.
 
 Am eigenen Board sind laut Besitzer keine weiteren Geräte angeschlossen. Bus-, Sensor- und Gegenstellentests gehören nicht zu dieser Erfassung und sind keine Voraussetzung für die Dokumentation.
 
