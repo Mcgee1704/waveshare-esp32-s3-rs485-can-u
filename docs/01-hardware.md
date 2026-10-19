@@ -16,7 +16,9 @@ Die beiden Varianten werden im gemeinsamen Wiki und Ressourcenbereich beschriebe
 | 40-MHz-Quarz, Y1 | Haupttakt des ESP32 |
 | 32,768-kHz-Quarz, Y2 | Zeitbasis der separaten RTC |
 
-Die Speicherbestückung folgt aus dem Schaltplan und dem R8-Datenblatt. Herstellerbeschreibungen nennen den S3R8 als Standardbestückung mit möglichen kundenspezifischen Varianten. Eine Chipabfrage des eigenen Exemplars liegt nicht vor. [Schaltplan](https://files.waveshare.com/wiki/ESP32-S3-RS485-CAN/ESP32-S3-RS485-CAN-Schematic.pdf), [Espressif-Datenblatt, Typentabelle](https://documentation.espressif.com/esp32-s3_datasheet_en.pdf)
+Die Speicherbestückung in dieser Tabelle folgt aus dem Schaltplan und dem R8-Datenblatt. Herstellerbeschreibungen nennen den S3R8 als Standardbestückung mit möglichen kundenspezifischen Varianten. [Schaltplan](https://files.waveshare.com/wiki/ESP32-S3-RS485-CAN/ESP32-S3-RS485-CAN-Schematic.pdf), [Espressif-Datenblatt, Typentabelle](https://documentation.espressif.com/esp32-s3_datasheet_en.pdf)
+
+Am eigenen Exemplar meldete esptool 5.3.0 am 19.10.2026 einen ESP32-S3 (QFN56), Revision v0.2, 8 MB integriertes PSRAM laut Chip-Package-Erkennung, einen 40-MHz-Quarz und 16 MB Flash. Die Flash-JEDEC-Kennung lautet Hersteller `0x20`, Gerät `0x4018`; Flashtyp und Spannung laut eFuse sind Quad mit vier Datenleitungen und 3,3 V. Die konkrete Flash-Bauteilbezeichnung wurde damit nicht bestimmt. Der Schaltplaneintrag W25Q128JVSI darf daher nicht als abgelesene Bestückung dieses Exemplars übernommen werden. Es erfolgte kein PSRAM-Funktionstest. [Individuelle Auslesung und Grenzen](05-own-board.md).
 
 Das Board ist im Schaltplan mit einem ESP32-S3R8 und separatem Flash aufgebaut. Die gelegentliche Bezeichnung als ESP32-S3-WROOM-Modul in Drittunterlagen ist keine belastbare Beschreibung dieser gezeigten Platine.
 
