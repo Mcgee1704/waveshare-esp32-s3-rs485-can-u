@@ -1,0 +1,10 @@
+.local/
+.handoff/
+__pycache__/
+*.pyc
+*.bin
+*.elf
+*.log
+.env
+.env.*
+!.env.example
